@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://inner-vida-lebind12-1746d7bc.koyeb.app/api',
   headers: {
     'Content-Type': 'application/json'
   }

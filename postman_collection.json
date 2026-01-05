@@ -1,0 +1,749 @@
+{
+	"info": {
+		"_postman_id": "flow-extension-blocker",
+		"name": "파일 확장자 차단 관리 API",
+		"description": "파일 확장자 차단 관리 시스템 API 테스트 컬렉션",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. 기본 API",
+			"item": [
+				{
+					"name": "전체 확장자 목록 조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. 고정 확장자 토글",
+			"item": [
+				{
+					"name": "고정 확장자 토글 - exe",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/fixed/exe",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "fixed", "exe"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "고정 확장자 토글 - bat",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/fixed/bat",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "fixed", "bat"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "고정 확장자 토글 - js",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/fixed/js",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "fixed", "js"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 존재하지 않는 확장자 토글",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/fixed/notexist",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "fixed", "notexist"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. 커스텀 확장자 추가 - 정상",
+			"item": [
+				{
+					"name": "커스텀 추가 - sh",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"sh\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "커스텀 추가 - py",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"py\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "커스텀 추가 - 대문자 (SH → sh)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"PHP\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "커스텀 추가 - 앞뒤 공백 제거",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"  rb  \"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "커스텀 추가 - 앞 점 제거 (.java → java)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \".java\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "커스텀 추가 - 숫자만 (123)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "커스텀 추가 - 20자 (경계값)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"abcdefghijklmnopqrst\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. 커스텀 확장자 추가 - 실패",
+			"item": [
+				{
+					"name": "[실패] 빈 문자열",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 공백만",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"   \"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 21자 초과",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"abcdefghijklmnopqrstu\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 특수문자 포함 - sh!",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"sh!\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 특수문자 포함 - py@",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"py@\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 한글",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"한글\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 중간 공백",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"te st\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 고정 확장자 중복 - exe",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"exe\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 고정 확장자 중복 - js",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"js\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 커스텀 확장자 중복",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"sh\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] null 값",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. 경로 문자 차단 (보안)",
+			"item": [
+				{
+					"name": "[실패] Path Traversal - a/b",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"a/b\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] Path Traversal - a\\b",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"a\\\\b\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] Path Traversal - ../sh",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"../sh\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] Path Traversal - ../etc",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"../etc\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] Path Traversal - ..\\win",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"..\\\\win\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] XSS - <img>",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"<img onerror=1>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] XSS - javascript:",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"javascript:alert\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] SQL Injection - 짧은 버전",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"extension\": \"x' OR '1'='1\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "6. 커스텀 확장자 삭제",
+			"item": [
+				{
+					"name": "커스텀 삭제 - sh",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom/sh",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom", "sh"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "커스텀 삭제 - py",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom/py",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom", "py"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 존재하지 않는 확장자 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom/notexist",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom", "notexist"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 고정 확장자 삭제 시도 - exe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom/exe",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom", "exe"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[실패] 고정 확장자 삭제 시도 - js",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/extensions/custom/js",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "extensions", "custom", "js"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
